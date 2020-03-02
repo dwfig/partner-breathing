@@ -27,7 +27,7 @@ let mappedBreath = 0;
 let gameState = 0;
 let changeState = 0;
 let timer = 0;
-let stateBg = ["#ffb0ed","#f7b081","#8affb5"]
+let stateBg = ["#FF40FF","#f7b081","#8affb5"]
 
 let synth;
 
