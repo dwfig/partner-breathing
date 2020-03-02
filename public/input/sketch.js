@@ -79,10 +79,12 @@ function draw() {
 
 	if (timer > 0){
 		timer -= 1
-	} else if (timer == 0 && changeState = 1 && gameState == 0){
+	} else if (timer == 0 && changeState == 1 && gameState == 0){
+		gameState += 1
 		changeState = 0;
 		setBreathMax();
-	} else if (timer == 0 && changeState = 1 && gameState == 1){
+	} else if (timer == 0 && changeState == 1 && gameState == 1){
+		gameState += 1
 		changeState = 0;
 		setBreathMin()
 	}
@@ -106,6 +108,7 @@ function draw() {
 
   textSize(40)
   text(breath.toFixed(2), 20, 60)
+	text(timer, 20, 20)
 
   strokeWeight(20)
   ellipse(windowWidth/2,((windowHeight/2)+50)-mappedBreath,250)
