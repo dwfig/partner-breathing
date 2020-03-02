@@ -25,6 +25,8 @@ let breathMin = 0;
 let mappedBreath = 0;
 
 let gameState = 0;
+let changeState = 0;
+let timer = 0;
 let stateBg = ["#ffb0ed","#f7b081","#8affb5"]
 
 let synth;
@@ -50,13 +52,18 @@ function setup() {
 
 function touchEnded(){
 	// managing state
-  if (gameState == 0){
-    setBreathMax()
-    gameState+=1
-  } else if (gameState== 1){
-    setBreathMin()
-    gameState+=1
-  }
+  // if (gameState == 0){
+  //   setBreathMax()
+  //   // gameState+=1
+	// 	timer = 120;
+	// 	changeState = 1;
+	//
+  // } else if (gameState== 1){
+  //   setBreathMin()
+  //   gameState+=1
+  // }
+	timer = 120;
+	changeState = 1;
 }
 
 function setBreathMax(){
@@ -69,6 +76,18 @@ function setBreathMin(){
 
 function draw() {
   background(stateBg[gameState]);
+
+	if (timer > 0){
+		timer -= 1
+	} else if (timer == 0 && changeState = 1 && gameState == 0){
+		changeState = 0;
+		setBreathMax();
+	} else if (timer == 0 && changeState = 1 && gameState == 1){
+		changeState = 0;
+		setBreathMin()
+	}
+
+
 	// averaging breath data every frame
   if (breathArray.length > 30){
     breathArray.shift()
