@@ -1,10 +1,10 @@
 {
-	"name": "CreativeCollisions",
+	"name": "PartnerBreathing",
 	"version": "1.0.0",
-	"description": "Creative Collisions",
+	"description": "tiny web socket game",
 	"author": {
-		"name": "Zeyao Li",
-		"email": "zeyao.li@nyu.edu"
+		"name": "Daniel Fries",
+		"email": "dwf253@nyu.edu"
 	},
 	"main": "server.js",
 	"scripts": {

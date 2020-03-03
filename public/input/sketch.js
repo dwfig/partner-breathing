@@ -1,5 +1,4 @@
-// import * as Tone from "tone";
-// const Tone = require("tone")
+
 
 // get permission for user touch functions
 if (typeof DeviceOrientationEvent.requestPermission === 'function') {
@@ -11,10 +10,10 @@ if (typeof DeviceOrientationEvent.requestPermission === 'function') {
 }
 
 // Open and connect input socket
-// let socket = io('/input');
-// socket.on('connect', () => {
-// 	console.log('Connected');
-// });
+let socket = io('/input');
+socket.on('connect', () => {
+	console.log('Connected');
+});
 
 // establishing some globals
 let breathArray = [];
@@ -33,18 +32,8 @@ let synth;
 
 const getSum = (accumulator, currentValue) => accumulator + currentValue;
 
-// StartAudioContext(Tone.context, '#button').then(function(){
-// 	synth = new Tone.PolySynth({
-//     "oscillator" : {
-// 	  "type" : "sine"
-//     },
-//     "envelope" : {
-//  	  "attack" : 0.1
-//     }
-//   }).toMaster();
-//
-// 	synth.triggerAttack(["C3","A2","G3"]);
-// })
+
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -62,7 +51,7 @@ function touchEnded(){
   //   setBreathMin()
   //   gameState+=1
   // }
-	timer = 120;
+	timer = 4;
 	changeState = 1;
 }
 
@@ -76,7 +65,6 @@ function setBreathMin(){
 
 function draw() {
   background(stateBg[gameState]);
-
 	if (timer > 0){
 		timer -= 1
 	} else if (timer == 0 && changeState == 1 && gameState == 0){
@@ -91,7 +79,7 @@ function draw() {
 
 
 	// averaging breath data every frame
-  if (breathArray.length > 30){
+  if (breathArray.length > 15){
     breathArray.shift()
   }
   breathArray.push(rotationX)
@@ -101,15 +89,16 @@ function draw() {
 	// once state is all set, start showing data
   if (gameState == 2){
     mappedBreath = map(breath, breathMin,breathMax, 0, 100)
+    socket.emit("breath", mappedBreath.toFixed(2));
   }
   // synth.set("detune", mappedBreath);
 
-	// socket.emit("breath",mappedBreath);
+
 
   textSize(40)
   text(breath.toFixed(2), 20, 60)
 	text(timer, 20, 20)
 
   strokeWeight(20)
-  ellipse(windowWidth/2,((windowHeight/2)+50)-mappedBreath,250)
+  ellipse(windowWidth/2,windowHeight/2, 250+mappedBreath)
 }
